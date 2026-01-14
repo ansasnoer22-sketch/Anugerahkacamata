@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anugerah Kacamata - Katalog & Promosi</title>
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --primary-dark: #020617;
+            --secondary-color: #3b82f6;
+            --background-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Header & Navigasi --- */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            margin: 0 2rem;
+            position: relative;
+            max-width: 500px;
+            display: none; /* Sembunyikan search saat di menu khusus */
+        }
+        
+        body:not(.viewing-special) .search-bar {
+            display: block;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 2rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .cart-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Layout Utama --- */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* --- Sidebar Filter --- */
+        .sidebar {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            color: var(--text-gray);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* --- Grid Produk --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            display: none; /* Hidden by default */
+        }
+        
+        .products-grid.active {
+            display: grid;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f1f5f9;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: #cbd5e1;
+        }
+
+        .product-image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--secondary-color);
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: auto;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* --- Grid Promosi / Berita (Style Lebar) --- */
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            display: none;
+        }
+
+        .news-grid.active {
+            display: flex;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        @media(min-width: 768px) {
+            .news-card {
+                flex-direction: row;
+                height: 250px;
+            }
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        @media(min-width: 768px) {
+            .news-image {
+                width: 40%;
+                height: 100%;
+            }
+        }
+
+        .news-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .news-desc {
+            color: var(--text-dark);
+            line-height: 1.6;
+            white-space: pre-wrap; 
+        }
+
+        /* --- Konsultasi Section --- */
+        .consultation-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .consultation-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .consultation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .consultation-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .consultation-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Cart Sidebar (Off-canvas) --- */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            max-width: 100%;
+            height: 100%;
+            background: var(--white);
+            z-index: 201;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-open .cart-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-open .cart-sidebar {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .cart-header h2 {
+            font-size: 1.25rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: var(--radius);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .cart-item-price {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .qty-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .qty-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .cart-item-remove {
+            margin-left: auto;
+            color: #ef4444;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* --- Toast Notification --- */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease forwards;
+            min-width: 250px;
+        }
+
+        .toast.success i { color: #22c55e; }
+        .toast.error i { color: #ef4444; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(10px); }
+        }
+
+        /* --- Modal Checkout --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 400;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-active .modal-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .checkout-modal {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-active .checkout-modal {
+            transform: scale(1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .btn-confirm {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                margin-bottom: 2rem;
+            }
+
+            .category-list {
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .category-btn {
+                white-space: nowrap;
+                width: auto;
+                background-color: #f1f5f9;
+            }
+
+            .category-btn.active {
+                background-color: var(--primary-color);
+                color: white;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-glasses"></i> ANUGERAH KACAMATA
+            </a>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Cari kacamata...">
+            </div>
+
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Layout Utama -->
+    <div class="container">
+        <!-- Sidebar Kategori -->
+        <aside class="sidebar">
+            <h3>Kategori</h3>
+            <ul class="category-list" id="categoryList">
+                <!-- Kategori akan di-render via JS -->
+            </ul>
+        </aside>
+
+        <!-- Area Utama (Isi Produk, Berita, atau Konsultasi) -->
+        <main>
+            <!-- Grid Produk (Kacamata) -->
+            <div class="products-grid active" id="productsGrid">
+                <!-- Produk akan di-render via JS -->
+            </div>
+
+            <!-- Grid Promosi (Berita) -->
+            <div class="news-grid" id="newsGrid">
+                <!-- Berita akan di-render via JS -->
+            </div>
+
+            <!-- Bagian Konsultasi -->
+            <div class="consultation-section" id="consultationView">
+                <div class="consultation-header">
+                    <h2><i class="fas fa-comments"></i> Konsultasi Mata / Harga</h2>
+                    <p>Punya keluhan mata atau bingung memilih lensa? Konsultasikan dengan ahli kami.</p>
+                </div>
+                <form class="consultation-form" onsubmit="sendConsultation(event)">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="consName" required placeholder="Nama Anda">
+                    </div>
+                    <div class="form-group">
+                        <label>No. WhatsApp</label>
+                        <input type="tel" id="consPhone" required placeholder="08xxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Keluhan / Pertanyaan</label>
+                        <textarea id="consMessage" rows="4" required placeholder="Contoh: Saya sering sakit kepala saat bekerja di depan komputer, rekomendasi lensa apa?"></textarea>
+                    </div>
+                    <button type="submit" class="checkout-btn">
+                        <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Keranjang Belanja (Off-canvas) -->
+    <div id="cartWrapper">
+        <div class="cart-overlay" onclick="toggleCart()"></div>
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Keranjang Belanja</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Item keranjang di-render di sini -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">Rp 0</span>
+                </div>
+                <button class="checkout-btn" onclick="openCheckout()">Checkout via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Checkout -->
+    <div id="checkoutModalWrapper">
+        <div class="modal-overlay" onclick="closeCheckout()"></div>
+        <div class="checkout-modal">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Form Pemesanan</h2>
+            <form id="checkoutForm" onsubmit="processCheckout(event)">
+                <div class="form-group">
+                    <label for="name">Nama Penerima</label>
+                    <input type="text" id="name" required placeholder="Contoh: Budi Santoso">
+                </div>
+                <div class="form-group">
+                    <label for="address">Alamat Pengiriman</label>
+                    <textarea id="address" rows="3" required placeholder="Jalan, No Rumah, Kecamatan, Kota..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Metode Pembayaran</label>
+                    <select id="payment">
+                        <option value="Transfer Bank">Transfer Bank (BRI)</option>
+                        <option value="E-Wallet">Dana</option>
+                        <option value="COD">COD (Bayar di Tempat)</option>
+                    </select>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeCheckout()">Batal</button>
+                    <button type="submit" class="btn-confirm">Kirim Pesanan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ==================================================================================
+        // --- BAGIAN 1: PENGATURAN MANUAL PROMOSI (GANTI DISINI) ---
+        // ==================================================================================
+        const promosiData = [
+            {
+                id: 'news1',
+                title: "PROMO MERDEKA - DISKON 17%",
+                date: "Agustus 2024",
+                // Ganti URL gambar di bawah ini dengan gambar Anda
+                image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80",
+                // Tulis isi promosi di sini (Gunakan \n untuk baris baru)
+                content: "Dapatkan diskon spesial 17% untuk semua pembelian Frame dan Lensa.\nBerlaku selama bulan Agustus. Jangan sampai kehabisan!"
+            },
+            {
+                id: 'news2',
+                title: "Gratis Ongkir Tasikmalaya",
+                date: "Info Terbaru",
+                image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80",
+                content: "Gratis ongkos kirim untuk pembelian minimal Rp 150.000 di area Tasikmalaya dan sekitarnya. Pesanan diproses di hari yang sama."
+            },
+            {
+                id: 'news3',
+                title: "Lensa Photocromatic Ready",
+                date: "10 Mei 2024",
+                image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=800&q=80",
+                content: "Lensa yang berubah warna saat terkena sinar matahari kini tersedia di Anugerah Kacamata. Cocok untuk Anda yang aktif beraktivitas di luar ruangan."
+            }
+        ];
+
+        // ==================================================================================
+        // --- BAGIAN 2: PENGATURAN MANUAL FRAME & HARGA (GANTI DISINI) ---
+        // ==================================================================================
+        
+        const frameData = [
+            // Frame 01 s/d 30
+            { id: 1,  name: "Rayban Aviator Classic",   price: 150000, category: "Frame", image: "Kacamata.jpg" },
+            { id: 2,  name: "Wayfarer Retro Black",     price: 85000,  category: "Frame", image: "" },
+            { id: 3,  name: "Cat Eye Fashion Pink",     price: 95000,  category: "Frame", image: "" },
+            { id: 4,  name: "Round Metal Gold",         price: 120000, category: "Frame", image: "" },
+            { id: 5,  name: "Bold Square Black",        price: 80000,  category: "Frame", image: "" },
+            { id: 6,  name: "Sporty Oakley Style",      price: 110000, category: "Frame", image: "" },
+            { id: 7,  name: "Titanium Minimalist",     price: 200000, category: "Frame", image: "" },
+            { id: 8,  name: "Tortoise Shell Classic",  price: 135000, category: "Frame", image: "" },
+            { id: 9,  name: "Oversized Round Blue",    price: 180000, category: "Frame", image: "https://picsum.photos/seed/f9/300/200" },
+            { id: 10, name: "Browline Gentleman",      price: 125000, category: "Frame", image: "https://picsum.photos/seed/f10/300/200" },
+            
+            { id: 11, name: "Heart Shape Cute",        price: 100000, category: "Frame", image: "https://picsum.photos/seed/f11/300/200" },
+            { id: 12, name: "Transparent Plastic",     price: 90000,  category: "Frame", image: "https://picsum.photos/seed/f12/300/200" },
+            { id: 13, name: "Aviator Polarized",       price: 175000, category: "Frame", image: "https://picsum.photos/seed/f13/300/200" },
+            { id: 14, name: "Wayfarer Matte Black",    price: 95000,  category: "Frame", image: "https://picsum.photos/seed/f14/300/200" },
+            { id: 15, name: "Cat Eye Red Wine",        price: 115000, category: "Frame", image: "https://picsum.photos/seed/f15/300/200" },
+            { id: 16, name: "Round Silver Thin",       price: 145000, category: "Frame", image: "https://picsum.photos/seed/f16/300/200" },
+            { id: 17, name: "Square Acetate Brown",    price: 105000, category: "Frame", image: "https://picsum.photos/seed/f17/300/200" },
+            { id: 18, name: "Sporty Wraparound",       price: 130000, category: "Frame", image: "https://picsum.photos/seed/f18/300/200" },
+            { id: 19, name: "Titanium Rimless",        price: 250000, category: "Frame", image: "https://picsum.photos/seed/f19/300/200" },
+            { id: 20, name: "Wooden Frame Bamboo",     price: 300000, category: "Frame", image: "https://picsum.photos/seed/f20/300/200" },
+
+            { id: 21, name: "Oversized Square",        price: 140000, category: "Frame", image: "https://picsum.photos/seed/f21/300/200" },
+            { id: 22, name: "Browline Gold/Brown",     price: 150000, category: "Frame", image: "https://picsum.photos/seed/f22/300/200" },
+            { id: 23, name: "Heart Shape Glitter",     price: 110000, category: "Frame", image: "https://picsum.photos/seed/f23/300/200" },
+            { id: 24, name: "Clear Lens Frame",        price: 95000,  category: "Frame", image: "https://picsum.photos/seed/f24/300/200" },
+            { id: 25, name: "Aviator Gold Frame",     price: 165000, category: "Frame", image: "https://picsum.photos/seed/f25/300/200" },
+            { id: 26, name: "Wayfarer Tortoise",       price: 135000, category: "Frame", image: "https://picsum.photos/seed/f26/300/200" },
+            { id: 27, name: "Cat Eye Leopard Print",   price: 120000, category: "Frame", image: "https://picsum.photos/seed/f27/300/200" },
+            { id: 28, name: "Round Double Bridge",    price: 155000, category: "Frame", image: "https://picsum.photos/seed/f28/300/200" },
+            { id: 29, name: "Hexagon Trendy",          price: 145000, category: "Frame", image: "https://picsum.photos/seed/f29/300/200" },
+            { id: 30, name: "Kids Colorful Frame",     price: 85000,  category: "Frame", image: "https://picsum.photos/seed/f30/300/200" }
+        ];
+
+        // ==================================================================================
+        // --- BAGIAN 3: PENGATURAN MANUAL LENSA (OPSIONAL) ---
+        // ==================================================================================
+        const lensaData = [
+            { id: 101, name: "CRMC Supersin",      price: 85000,  category: "Lensa", image: "CRMC.jpg" },
+            { id: 102, name: "BLueRay",      price: 125000,  category: "Lensa", image: "blueray.jpg" },
+            { id: 103, name: "PhotoCromic",      price: 125000,  category: "Lensa", image: "Photocromic.jpg" },
+            { id: 104, name: "BlueCromic",      price: 150000,  category: "Lensa", image: "bluecromic.jpg" },
+            { id: 105, name: "Foldable Reading Glasses", price: 125000, category: "Lensa", image: "https://picsum.photos/seed/l5/300/200" },
+            { id: 106, name: "Blue Light Blocking",     price: 150000, category: "Lensa", image: "https://picsum.photos/seed/l6/300/200" },
+            { id: 107, name: "Gamer Yellow Lens",       price: 190000, category: "Lensa", image: "https://picsum.photos/seed/l7/300/200" },
+            { id: 108, name: "Night Driving Yellow",     price: 165000, category: "Lensa", image: "https://picsum.photos/seed/l8/300/200" }
+        ];
+
+        // Gabungkan semua data produk menjadi satu array
+        const products = [...frameData, ...lensaData];
+
+        // ==================================================================================
+        // --- LOGIKA PROGRAM (JANGAN DIUBAH KECUALI PAHAM KODING) ---
+        // ==================================================================================
+
+        let cart = [];
+        let activeCategory = 'Semua';
+
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts(products); // Default view
+            updateCartUI();
+        });
+
+        // --- Render Kategori (Updated List) ---
+        function renderCategories() {
+            const categories = ['Semua', 'Frame', 'Lensa', 'Promosi', 'Konsultasi'];
+            const container = document.getElementById('categoryList');
+            
+            container.innerHTML = categories.map(cat => {
+                let icon = '';
+                if(cat === 'Frame') icon = '<i class="fas fa-glasses"></i>';
+                else if(cat === 'Lensa') icon = '<i class="fas fa-eye"></i>';
+                else if(cat === 'Promosi') icon = '<i class="fas fa-bullhorn" style="color: #eab308;"></i>';
+                else if(cat === 'Konsultasi') icon = '<i class="fas fa-comments" style="color: #10b981;"></i>';
+                else icon = '<i class="fas fa-th-large"></i>';
+
+                return `
+                <li>
+                    <button class="category-btn ${cat === activeCategory ? 'active' : ''}" 
+                            onclick="filterCategory('${cat}')">
+                        <span>${cat}</span>
+                        ${icon}
+                    </button>
+                </li>
+            `;
+            }).join('');
+        }
+
+        // --- Render Produk (Grid Biasa) ---
+        function renderProducts(items) {
+            const container = document.getElementById('productsGrid');
+            container.classList.add('active');
+            
+            // Sembunyikan elemen lain
+            document.getElementById('newsGrid').classList.remove('active'); 
+            document.getElementById('consultationView').classList.remove('active');
+            document.body.classList.remove('viewing-special'); // Tampilkan search bar
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Produk tidak ditemukan.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(product => `
+                <article class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">${product.category}</span>
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">${formatRupiah(product.price)}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            <i class="fas fa-plus"></i> Tambah
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // --- Render Promosi/Berita (Layout Lebar) ---
+        function renderPromosi(items) {
+            const container = document.getElementById('newsGrid');
+            
+            // Sembunyikan yang lain
+            document.getElementById('productsGrid').classList.remove('active');
+            document.getElementById('consultationView').classList.remove('active');
+            container.classList.add('active');
+            document.body.classList.add('viewing-special'); // Sembunyikan search bar
+
+            if (items.length === 0) {
+                container.innerHTML = `<p style="text-align:center;">Belum ada promosi saat ini.</p>`;
+                return;
+            }
+
+            container.innerHTML = items.map(news => `
+                <article class="news-card">
+                    <img src="${news.image}" alt="${news.title}" class="news-image" onerror="this.src='https://via.placeholder.com/800x400?text=Promo'">
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar-alt"></i> ${news.date}</div>
+                        <h3 class="news-title">${news.title}</h3>
+                        <div class="news-desc">${news.content}</div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // --- Render Konsultasi ---
+        function renderKonsultasi() {
+            const consultationView = document.getElementById('consultationView');
+            
+            // Sembunyikan yang lain
+            document.getElementById('productsGrid').classList.remove('active');
+            document.getElementById('newsGrid').classList.remove('active');
+            consultationView.classList.add('active');
+            document.body.classList.add('viewing-special'); // Sembunyikan search bar
+        }
+
+        // --- Filter Logic ---
+        function filterCategory(category) {
+            activeCategory = category;
+            renderCategories(); 
+            
+            // Jika kategori Promosi
+            if (category === 'Promosi') {
+                renderPromosi(promosiData);
+                return;
+            }
+
+            // Jika kategori Konsultasi
+            if (category === 'Konsultasi') {
+                renderKonsultasi();
+                return;
+            }
+
+            // Logika produk biasa (Semua, Frame, Lensa)
+            let itemsToRender = [];
+
+            if (category === 'Semua') {
+                itemsToRender = products;
+            } else {
+                itemsToRender = products.filter(p => p.category === category);
+            }
+
+            renderProducts(itemsToRender);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            if (keyword.length > 0) {
+                activeCategory = ''; 
+                renderCategories();
+            } else {
+                activeCategory = 'Semua';
+                renderCategories();
+            }
+
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(keyword) || 
+                p.category.toLowerCase().includes(keyword)
+            );
+            renderProducts(filtered);
+        });
+
+        // --- Logika Keranjang ---
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" masuk keranjang`, 'success');
+        }
+
+        function updateCartQty(productId, change) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCountBadge = document.getElementById('cartCount');
+            const cartTotalEl = document.getElementById('cartTotal');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountBadge.textContent = totalQty;
+            cartCountBadge.style.display = totalQty > 0 ? 'flex' : 'none';
+
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            cartTotalEl.textContent = formatRupiah(totalPrice);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>Keranjang masih kosong.</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/70?text=Img'">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${formatRupiah(item.price)}</div>
+                            <div class="cart-item-controls">
+                                <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
+                                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleCart() {
+            document.getElementById('cartWrapper').classList.toggle('cart-open');
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast('Keranjang kosong, tidak bisa checkout!', 'error');
+                return;
+            }
+            toggleCart(); 
+            document.getElementById('checkoutModalWrapper').classList.add('modal-active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModalWrapper').classList.remove('modal-active');
+        }
+
+        function processCheckout(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const payment = document.getElementById('payment').value;
+
+            // --- NOMOR WA ADMIN ---
+            const sellerPhone = "6282118708534"; 
+
+            let messageItems = "";
+            let totalAmount = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                totalAmount += subtotal;
+                messageItems += `${index + 1}. ${item.name} (${item.qty}x) - ${formatRupiah(subtotal)}\n`;
+            });
+
+            const finalMessage = `
+*Halo Admin, Saya ingin memesan:*
+-----------------------------
+👤 *Nama:* ${name}
+📍 *Alamat:* ${address}
+💳 *Pembayaran:* ${payment}
+
+📝 *Detail Pesanan:*
+ ${messageItems}
+-----------------------------
+💰 *Total Tagihan:* ${formatRupiah(totalAmount)}
+
+Mohon diproses, terima kasih!
+            `;
+
+            const encodedMessage = encodeURIComponent(finalMessage);
+            const waLink = `https://wa.me/${sellerPhone}?text=${encodedMessage}`;
+
+            cart = [];
+            updateCartUI();
+            document.getElementById('checkoutForm').reset();
+            closeCheckout();
+            
+            window.open(waLink, '_blank');
+            showToast('Membuka WhatsApp...', 'success');
+        }
+
+        // --- Fitur Kirim Konsultasi ---
+        function sendConsultation(e) {
+            e.preventDefault();
+            const name = document.getElementById('consName').value;
+            const phone = document.getElementById('consPhone').value;
+            const message = document.getElementById('consMessage').value;
+            const sellerPhone = "6282118708534";
+
+            const text = `Halo Admin, saya ${name} (${phone}).%0A%0A*Saya ingin konsultasi:*%0A${message}`;
+            
+            window.open(`https://wa.me/${sellerPhone}?text=${text}`, '_blank');
+            showToast('Mengalihkan ke WhatsApp...', 'success');
+            e.target.reset();
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            
+            toast.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease forwards';
+                toast.addEventListener('animationend', () => {
+                    toast.remove();
+                });
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
