@@ -69,7 +69,7 @@
             margin: 0 2rem;
             position: relative;
             max-width: 500px;
-            display: none; /* Sembunyikan search saat di menu khusus */
+            display: none;
         }
         
         body:not(.viewing-special) .search-bar {
@@ -202,7 +202,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
-            display: none; /* Hidden by default */
+            display: none;
         }
         
         .products-grid.active {
@@ -369,36 +369,221 @@
             white-space: pre-wrap; 
         }
 
-        /* --- Konsultasi Section --- */
+        /* --- Konsultasi Section (PERBAIKAN TAMPILAN) --- */
         .consultation-section {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-md);
-            max-width: 800px;
-            margin: 0 auto;
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .consultation-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
-        .consultation-header {
-            text-align: center;
+        .consultation-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media(min-width: 768px) {
+            .consultation-layout {
+                grid-template-columns: 1fr 1.5fr; /* Kisi info lebih kecil, form lebih besar */
+                align-items: start;
+            }
+        }
+
+        .consultation-info {
+            background: var(--primary-color);
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .consultation-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .consultation-info p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .info-features li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-features i {
+            background: rgba(255,255,255,0.2);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .consultation-form-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .consultation-form-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .consultation-form-card p {
+            color: var(--text-gray);
             margin-bottom: 2rem;
         }
 
-        .consultation-header h2 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        .consultation-form {
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .input-wrapper input, 
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 3rem; /* Padding kiri besar untuk ikon */
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .input-wrapper input:focus, 
+        .input-wrapper textarea:focus {
+            background: white;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-submit-consultation {
+            width: 100%;
+            padding: 1rem;
+            background-color: #25D366; /* WA Green */
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-submit-consultation:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        /* --- Informasi Section --- */
+        .info-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .info-section.active {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media(min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .info-full-width {
+                grid-column: span 2;
+            }
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
             gap: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .info-list i {
+            color: var(--secondary-color);
+            margin-top: 4px;
+        }
+
+        .bank-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
         @keyframes fadeIn {
@@ -452,6 +637,7 @@
             align-items: center;
             background: var(--primary-color);
             color: white;
+            flex-shrink: 0;
         }
 
         .cart-header h2 {
@@ -536,10 +722,55 @@
             font-size: 0.9rem;
         }
 
-        .cart-footer {
+        /* --- Section Form Checkout di dalam Cart --- */
+        .cart-checkout-section {
             padding: 1.5rem;
             background-color: #f8fafc;
             border-top: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .cart-checkout-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .cart-form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .cart-form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .cart-form-group input, 
+        .cart-form-group textarea, 
+        .cart-form-group select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            background: white;
+        }
+        
+        .cart-form-group input:focus, 
+        .cart-form-group textarea:focus, 
+        .cart-form-group select:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+            flex-shrink: 0;
         }
 
         .cart-total {
@@ -548,12 +779,13 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            color: var(--primary-color);
         }
 
         .checkout-btn {
             width: 100%;
             padding: 1rem;
-            background-color: var(--secondary-color);
+            background-color: #25D366; /* Warna Hijau WA */
             color: white;
             border: none;
             border-radius: var(--radius);
@@ -561,10 +793,14 @@
             font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .checkout-btn:hover {
-            background-color: #2563eb;
+            background-color: #128C7E;
         }
 
         /* --- Toast Notification --- */
@@ -601,90 +837,6 @@
 
         @keyframes fadeOut {
             to { opacity: 0; transform: translateY(10px); }
-        }
-
-        /* --- Modal Checkout --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 400;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .modal-active .modal-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .checkout-modal {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--radius);
-            width: 90%;
-            max-width: 500px;
-            box-shadow: var(--shadow-lg);
-            transform: scale(0.9);
-            transition: var(--transition);
-        }
-
-        .modal-active .checkout-modal {
-            transform: scale(1);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius);
-            outline: none;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .btn-cancel {
-            background: #e2e8f0;
-            color: var(--text-dark);
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            flex: 1;
-            font-weight: 600;
-        }
-
-        .btn-confirm {
-            background: var(--secondary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            flex: 1;
-            font-weight: 600;
         }
 
         /* --- Responsiveness --- */
@@ -763,7 +915,7 @@
             </ul>
         </aside>
 
-        <!-- Area Utama (Isi Produk, Berita, atau Konsultasi) -->
+        <!-- Area Utama (Isi Produk, Berita, Konsultasi, atau Informasi) -->
         <main>
             <!-- Grid Produk (Kacamata) -->
             <div class="products-grid active" id="productsGrid">
@@ -775,29 +927,143 @@
                 <!-- Berita akan di-render via JS -->
             </div>
 
-            <!-- Bagian Konsultasi -->
+            <!-- Bagian Konsultasi (TAMPILAN BARU) -->
             <div class="consultation-section" id="consultationView">
-                <div class="consultation-header">
-                    <h2><i class="fas fa-comments"></i> Konsultasi Mata / Harga</h2>
-                    <p>Punya keluhan mata atau bingung memilih lensa? Konsultasikan dengan ahli kami.</p>
+                <div class="consultation-layout">
+                    <!-- Kolom Kiri: Informasi Mengapa Konsultasi -->
+                    <div class="consultation-info">
+                        <h3><i class="fas fa-comments"></i> Butuh Bantuan?</h3>
+                        <p>Jangan ragu untuk bertanya! Tim ahli optik kami siap membantu Anda menemukan kacamata yang paling pas untuk kesehatan dan gaya Anda.</p>
+                        
+                        <ul class="info-features">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <div>
+                                    <strong>Konsultasi Gratis</strong><br>
+                                    Diskusikan keluhan mata Anda tanpa biaya tambahan.
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-md"></i>
+                                <div>
+                                    <strong>Saran Ahli</strong><br>
+                                    Rekomendasi lensa dan frame berdasarkan kebutuhan medis.
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <strong>Respon Cepat</strong><br>
+                                    Kami akan membalas pesan Anda secepat mungkin via WhatsApp.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Kolom Kanan: Formulir -->
+                    <div class="consultation-form-card">
+                        <h3>Formulir Konsultasi</h3>
+                        <p>Isi data di bawah ini, kami akan segera menghubungi Anda.</p>
+                        
+                        <form class="consultation-form" onsubmit="sendConsultation(event)">
+                            <div class="input-group">
+                                <label>Nama Lengkap</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="consName" required placeholder="Masukkan nama Anda">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>No. WhatsApp</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <input type="tel" id="consPhone" required placeholder="Contoh: 0812...">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Keluhan / Pertanyaan</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-comment-medical"></i>
+                                    <textarea id="consMessage" rows="4" required placeholder="Ceritakan keluhan atau pertanyaan Anda..."></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-submit-consultation">
+                                <i class="fab fa-whatsapp"></i> Kirim Konsultasi
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <form class="consultation-form" onsubmit="sendConsultation(event)">
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" id="consName" required placeholder="Nama Anda">
+            </div>
+
+            <!-- Bagian Informasi -->
+            <div class="info-section" id="infoView">
+                <div class="info-header" style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="color: var(--primary-color);">Informasi Toko</h2>
+                    <p style="color: var(--text-gray);">Simpan data kontak dan rekening kami untuk kemudahan transaksi.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <!-- Alamat & Kontak -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Alamat & Kontak</h3>
+                        <ul class="info-list">
+                            <li>
+                                <i class="fas fa-store"></i>
+                                <div>
+                                    <strong>Anugerah Kacamata</strong><br>
+                                    Kampung Hijrah Residence (KHR) L15 Cisayong, Kab Tasikmalaya<br>
+                                    (Jawa Barat)
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fab fa-whatsapp"></i>
+                                <div>
+                                    <strong>WhatsApp:</strong><br>
+                                    <a href="https://wa.me/6282118708534" style="color: var(--secondary-color); text-decoration: none;">0821-1870-8534</a>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>Jam Operasional:</strong><br>
+                                    Senin - Sabtu: 08.00 - 20.00 WIB<br>
+                                    Minggu: 09.00 - 17.00 WIB
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        <label>No. WhatsApp</label>
-                        <input type="tel" id="consPhone" required placeholder="08xxx">
+
+                    <!-- Rekening Bank -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-university"></i> Rekening Pembayaran</h3>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-gray);">Silakan transfer ke salah satu rekening berikut setelah melakukan pemesanan:</p>
+                        <ul class="info-list">
+                            <li>
+                                <i class="fas fa-credit-card"></i>
+                                <div>
+                                    <span class="bank-logo" style="color: #003399;">BRI</span>
+                                    1234-01-00xxxx-xx-1<br>
+                                    a.n. Pemilik Toko
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-credit-card"></i>
+                                <div>
+                                    <span class="bank-logo" style="color: #118EEA;">DANA</span>
+                                    0821-1870-8534<br>
+                                    a.n. Pemilik Toko
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <div>
+                                    <span class="bank-logo" style="color: #333;">COD</span>
+                                    Bayar di Tempat (Area Tasikmalaya Kota)
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        <label>Keluhan / Pertanyaan</label>
-                        <textarea id="consMessage" rows="4" required placeholder="Contoh: Saya sering sakit kepala saat bekerja di depan komputer, rekomendasi lensa apa?"></textarea>
-                    </div>
-                    <button type="submit" class="checkout-btn">
-                        <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp
-                    </button>
-                </form>
+                </div>
             </div>
         </main>
     </div>
@@ -815,44 +1081,36 @@
                 <!-- Item keranjang di-render di sini -->
             </div>
 
+            <!-- Form Pesanan Digabung Disini -->
+            <div class="cart-checkout-section">
+                <h4>Form Pengiriman</h4>
+                <div class="cart-form-group">
+                    <label>Nama Penerima</label>
+                    <input type="text" id="cartName" placeholder="Contoh: Budi Santoso">
+                </div>
+                <div class="cart-form-group">
+                    <label>Alamat Pengiriman</label>
+                    <textarea id="cartAddress" rows="2" placeholder="Jalan, No Rumah, Kecamatan..."></textarea>
+                </div>
+                <div class="cart-form-group">
+                    <label>Metode Pembayaran</label>
+                    <select id="cartPayment">
+                        <option value="Transfer Bank BRI">Transfer Bank (BRI)</option>
+                        <option value="E-Wallet DANA">DANA</option>
+                        <option value="COD">COD (Bayar di Tempat)</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="cart-footer">
                 <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotal">Rp 0</span>
                 </div>
-                <button class="checkout-btn" onclick="openCheckout()">Checkout via WhatsApp</button>
+                <button class="checkout-btn" onclick="processCheckout()">
+                    <i class="fab fa-whatsapp"></i> Kirim Pesanan
+                </button>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal Checkout -->
-    <div id="checkoutModalWrapper">
-        <div class="modal-overlay" onclick="closeCheckout()"></div>
-        <div class="checkout-modal">
-            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Form Pemesanan</h2>
-            <form id="checkoutForm" onsubmit="processCheckout(event)">
-                <div class="form-group">
-                    <label for="name">Nama Penerima</label>
-                    <input type="text" id="name" required placeholder="Contoh: Budi Santoso">
-                </div>
-                <div class="form-group">
-                    <label for="address">Alamat Pengiriman</label>
-                    <textarea id="address" rows="3" required placeholder="Jalan, No Rumah, Kecamatan, Kota..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="payment">Metode Pembayaran</label>
-                    <select id="payment">
-                        <option value="Transfer Bank">Transfer Bank (BRI)</option>
-                        <option value="E-Wallet">Dana</option>
-                        <option value="COD">COD (Bayar di Tempat)</option>
-                    </select>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeCheckout()">Batal</button>
-                    <button type="submit" class="btn-confirm">Kirim Pesanan</button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -867,10 +1125,8 @@
             {
                 id: 'news1',
                 title: "PROMO MERDEKA - DISKON 17%",
-                date: "Agustus 2024",
-                // Ganti URL gambar di bawah ini dengan gambar Anda
+                date: "Januari 2026",
                 image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80",
-                // Tulis isi promosi di sini (Gunakan \n untuk baris baru)
                 content: "Dapatkan diskon spesial 17% untuk semua pembelian Frame dan Lensa.\nBerlaku selama bulan Agustus. Jangan sampai kehabisan!"
             },
             {
@@ -883,18 +1139,18 @@
             {
                 id: 'news3',
                 title: "Lensa Photocromatic Ready",
-                date: "10 Mei 2024",
+                date: "Januari 2026",
                 image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=800&q=80",
                 content: "Lensa yang berubah warna saat terkena sinar matahari kini tersedia di Anugerah Kacamata. Cocok untuk Anda yang aktif beraktivitas di luar ruangan."
             }
         ];
 
         // ==================================================================================
-        // --- BAGIAN 2: PENGATURAN MANUAL FRAME & HARGA (GANTI DISINI) ---
+        // --- BAGIAN 2: PENGATURAN MANUAL FRAME & HARGA (50 ITEM) ---
         // ==================================================================================
         
         const frameData = [
-            // Frame 01 s/d 30
+            // Frame 01 s/d 30 (Data Lama)
             { id: 1,  name: "Rayban Aviator Classic",   price: 150000, category: "Frame", image: "Kacamata.jpg" },
             { id: 2,  name: "Wayfarer Retro Black",     price: 85000,  category: "Frame", image: "Kacamata.jpg" },
             { id: 3,  name: "Cat Eye Fashion Pink",     price: 95000,  category: "Frame", image: "" },
@@ -926,7 +1182,30 @@
             { id: 27, name: "Cat Eye Leopard Print",   price: 120000, category: "Frame", image: "https://picsum.photos/seed/f27/300/200" },
             { id: 28, name: "Round Double Bridge",    price: 155000, category: "Frame", image: "https://picsum.photos/seed/f28/300/200" },
             { id: 29, name: "Hexagon Trendy",          price: 145000, category: "Frame", image: "https://picsum.photos/seed/f29/300/200" },
-            { id: 30, name: "Kids Colorful Frame",     price: 85000,  category: "Frame", image: "https://picsum.photos/seed/f30/300/200" }
+            { id: 30, name: "Kids Colorful Frame",     price: 85000,  category: "Frame", image: "https://picsum.photos/seed/f30/300/200" },
+
+            // Frame 31 s/d 50 (Data Baru)
+            { id: 31, name: "Vintage Round Brown",     price: 140000, category: "Frame", image: "https://picsum.photos/seed/f31/300/200" },
+            { id: 32, name: "Pilot Style Silver",      price: 160000, category: "Frame", image: "https://picsum.photos/seed/f32/300/200" },
+            { id: 33, name: "Geometric Rimless",       price: 210000, category: "Frame", image: "https://picsum.photos/seed/f33/300/200" },
+            { id: 34, name: "Clubmaster Tortoise",    price: 145000, category: "Frame", image: "https://picsum.photos/seed/f34/300/200" },
+            { id: 35, name: "Shield Sunglasses",       price: 190000, category: "Frame", image: "https://picsum.photos/seed/f35/300/200" },
+            { id: 36, name: "Rectangular Metal",       price: 130000, category: "Frame", image: "https://picsum.photos/seed/f36/300/200" },
+            { id: 37, name: "Oversized Butterfly",    price: 175000, category: "Frame", image: "https://picsum.photos/seed/f37/300/200" },
+            { id: 38, name: "Keyhole Bridge Brown",    price: 120000, category: "Frame", image: "https://picsum.photos/seed/f38/300/200" },
+            { id: 39, name: "Sporty Cycling Glasses",  price: 185000, category: "Frame", image: "https://picsum.photos/seed/f39/300/200" },
+            { id: 40, name: "Designer Inspired Gold",  price: 250000, category: "Frame", image: "https://picsum.photos/seed/f40/300/200" },
+
+            { id: 41, name: "Clear Acetate",          price: 95000,  category: "Frame", image: "https://picsum.photos/seed/f41/300/200" },
+            { id: 42, name: "Matte Black Round",       price: 105000, category: "Frame", image: "https://picsum.photos/seed/f42/300/200" },
+            { id: 43, name: "Two Tone Gradient",       price: 155000, category: "Frame", image: "https://picsum.photos/seed/f43/300/200" },
+            { id: 44, name: "Polarized Fishing",       price: 170000, category: "Frame", image: "https://picsum.photos/seed/f44/300/200" },
+            { id: 45, name: "Half Rim Metal",          price: 135000, category: "Frame", image: "https://picsum.photos/seed/f45/300/200" },
+            { id: 46, name: "Fashion Chain Detail",   price: 195000, category: "Frame", image: "https://picsum.photos/seed/f46/300/200" },
+            { id: 47, name: "Soft Square Pink",        price: 110000, category: "Frame", image: "https://picsum.photos/seed/f47/300/200" },
+            { id: 48, name: "Titanium Flex Hinge",    price: 280000, category: "Frame", image: "https://picsum.photos/seed/f48/300/200" },
+            { id: 49, name: "Retro Oval",              price: 125000, category: "Frame", image: "https://picsum.photos/seed/f49/300/200" },
+            { id: 50, name: "Kids Sporty Blue",        price: 75000,  category: "Frame", image: "https://picsum.photos/seed/f50/300/200" }
         ];
 
         // ==================================================================================
@@ -967,9 +1246,9 @@
             updateCartUI();
         });
 
-        // --- Render Kategori (Updated List) ---
+        // --- Render Kategori (Updated List: 'Simpan' -> 'Informasi') ---
         function renderCategories() {
-            const categories = ['Semua', 'Frame', 'Lensa', 'Promosi', 'Konsultasi'];
+            const categories = ['Semua', 'Frame', 'Lensa', 'Promosi', 'Konsultasi', 'Informasi'];
             const container = document.getElementById('categoryList');
             
             container.innerHTML = categories.map(cat => {
@@ -978,6 +1257,7 @@
                 else if(cat === 'Lensa') icon = '<i class="fas fa-eye"></i>';
                 else if(cat === 'Promosi') icon = '<i class="fas fa-bullhorn" style="color: #eab308;"></i>';
                 else if(cat === 'Konsultasi') icon = '<i class="fas fa-comments" style="color: #10b981;"></i>';
+                else if(cat === 'Informasi') icon = '<i class="fas fa-info-circle" style="color: #8b5cf6;"></i>';
                 else icon = '<i class="fas fa-th-large"></i>';
 
                 return `
@@ -1000,7 +1280,8 @@
             // Sembunyikan elemen lain
             document.getElementById('newsGrid').classList.remove('active'); 
             document.getElementById('consultationView').classList.remove('active');
-            document.body.classList.remove('viewing-special'); // Tampilkan search bar
+            document.getElementById('infoView').classList.remove('active');
+            document.body.classList.remove('viewing-special');
             
             if (items.length === 0) {
                 container.innerHTML = `
@@ -1036,8 +1317,9 @@
             // Sembunyikan yang lain
             document.getElementById('productsGrid').classList.remove('active');
             document.getElementById('consultationView').classList.remove('active');
+            document.getElementById('infoView').classList.remove('active');
             container.classList.add('active');
-            document.body.classList.add('viewing-special'); // Sembunyikan search bar
+            document.body.classList.add('viewing-special');
 
             if (items.length === 0) {
                 container.innerHTML = `<p style="text-align:center;">Belum ada promosi saat ini.</p>`;
@@ -1063,8 +1345,21 @@
             // Sembunyikan yang lain
             document.getElementById('productsGrid').classList.remove('active');
             document.getElementById('newsGrid').classList.remove('active');
+            document.getElementById('infoView').classList.remove('active');
             consultationView.classList.add('active');
-            document.body.classList.add('viewing-special'); // Sembunyikan search bar
+            document.body.classList.add('viewing-special');
+        }
+
+        // --- Render Informasi ---
+        function renderInfo() {
+            const infoView = document.getElementById('infoView');
+            
+            // Sembunyikan yang lain
+            document.getElementById('productsGrid').classList.remove('active');
+            document.getElementById('newsGrid').classList.remove('active');
+            document.getElementById('consultationView').classList.remove('active');
+            infoView.classList.add('active');
+            document.body.classList.add('viewing-special');
         }
 
         // --- Filter Logic ---
@@ -1081,6 +1376,12 @@
             // Jika kategori Konsultasi
             if (category === 'Konsultasi') {
                 renderKonsultasi();
+                return;
+            }
+
+            // Jika kategori Informasi (PENGGANTI SIMPAN)
+            if (category === 'Informasi') {
+                renderInfo();
                 return;
             }
 
@@ -1188,25 +1489,22 @@
             document.getElementById('cartWrapper').classList.toggle('cart-open');
         }
 
-        function openCheckout() {
+        // --- Proses Checkout (Digabung dengan Cart Sidebar) ---
+        function processCheckout(e) {
             if (cart.length === 0) {
                 showToast('Keranjang kosong, tidak bisa checkout!', 'error');
                 return;
             }
-            toggleCart(); 
-            document.getElementById('checkoutModalWrapper').classList.add('modal-active');
-        }
 
-        function closeCheckout() {
-            document.getElementById('checkoutModalWrapper').classList.remove('modal-active');
-        }
+            // Ambil data dari form di dalam sidebar
+            const name = document.getElementById('cartName').value;
+            const address = document.getElementById('cartAddress').value;
+            const payment = document.getElementById('cartPayment').value;
 
-        function processCheckout(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const address = document.getElementById('address').value;
-            const payment = document.getElementById('payment').value;
+            if (!name || !address) {
+                showToast('Mohon lengkapi Nama dan Alamat!', 'error');
+                return;
+            }
 
             // --- NOMOR WA ADMIN ---
             const sellerPhone = "6282118708534"; 
@@ -1238,10 +1536,14 @@ Mohon diproses, terima kasih!
             const encodedMessage = encodeURIComponent(finalMessage);
             const waLink = `https://wa.me/${sellerPhone}?text=${encodedMessage}`;
 
+            // Kosongkan keranjang setelah kirim
             cart = [];
             updateCartUI();
-            document.getElementById('checkoutForm').reset();
-            closeCheckout();
+            document.getElementById('cartName').value = "";
+            document.getElementById('cartAddress').value = "";
+            document.getElementById('cartPayment').selectedIndex = 0;
+            
+            toggleCart(); // Tutup sidebar
             
             window.open(waLink, '_blank');
             showToast('Membuka WhatsApp...', 'success');
